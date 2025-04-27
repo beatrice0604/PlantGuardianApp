@@ -1,0 +1,53 @@
+﻿@model PlantGuardian.Models.Plant
+
+@{
+    ViewData["Title"] = "Edit Plant";
+}
+
+<h1>Edit Plant</h1>
+
+<form asp-action="Edit" method="post">
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Type"></label>
+        <select asp-for="Type" class="form-control">
+            <option value="">-- Select Type --</option>
+            <option value="Orchid">Orchid</option>
+            <option value="Daisy">Daisy</option>
+            <option value="Cactus">Cactus</option>
+        </select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="LastWatered">Last Watered</label>
+        <input type="text" class="form-control datepicker" id="LastWatered" name="LastWatered"
+               value="@Model.LastWatered.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="form-group">
+        @Html.CheckBoxFor(m => m.NeedsLight, new { @class = "form-check-input" })
+        <label class="form-check-label" for="NeedsLight">Needs Light</label>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PreferredHumidity"></label>
+        <input asp-for="PreferredHumidity" type="number" class="form-control" />
+        <span asp-validation-for="PreferredHumidity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Owner"></label>
+        <input asp-for="Owner" class="form-control" />
+        <span asp-validation-for="Owner" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
