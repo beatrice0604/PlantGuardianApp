@@ -1,0 +1,41 @@
+﻿@model List<Plant>
+
+@{
+    ViewData["Title"] = "Plants";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Last Watered</th>
+            <th>Owner</th>
+            <th>      </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var plant in Model)
+        {
+            <tr>
+                <td>@plant.Name</td>
+                <td>@plant.Type</td>
+                <td>@plant.LastWatered.ToShortDateString()</td>
+                <td>@plant.Owner</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Plants", new { id = plant.PlantId})" class="btn btn-sm btn-primary">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Plants")" class="btn btn-primary">Add New Plant</a>
+@if (TempData["Notification"] != null)
+{
+    <script>
+        alert('@TempData["Notification"]');
+    </script>
+}

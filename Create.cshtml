@@ -1,0 +1,55 @@
+﻿@model PlantGuardian.Models.Plant
+
+@{
+
+    ViewData["Title"] = "Create Plant";
+
+    var plantTypes = ViewBag.Types as List<string> ?? new List<string> { "Orchid", "Cactus", "Daisy" };
+}
+
+<h1>Create Plant</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Type">Type</label>
+        <select class="form-control" id="Type" name="Type" required>
+            @foreach (var type in ViewBag.Types as List<string>)
+            {
+                <option value="@type" selected="@(Model?.Type == type ? "selected" : null)">@type</option>
+            }
+        </select>
+    </div>
+
+       <div class="form-group">
+        <label for="LastWatered">Last Watered</label>
+        <input type="text" class="form-control datepicker" id="LastWatered" name="LastWatered"
+               value="@Model.LastWatered.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="form-group">
+         @Html.CheckBoxFor(m => m.NeedsLight, new { @class = "form-check-input" })
+         <label class="form-check-label" for="NeedsLight">Needs Light</label>
+        </div>
+
+    <div class="form-group">
+        <label for="PreferredHumidity">Preferred Humidity</label>
+        <input type="number" class="form-control" id="PreferredHumidity" name="PreferredHumidity" value="@Model.PreferredHumidity" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+@section Scripts {
+    <script>
+        flatpickr(".datepicker", {
+            dateFormat: "Y-m-d",
+            defaultDate: "@Model.LastWatered.ToString("yyyy-MM-dd")"
+        });
+    </script>
+}
+
